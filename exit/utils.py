@@ -251,31 +251,13 @@ def copyComplete(source, target):
 data_permission = os.access('/data/epinyoan', os.R_OK | os.W_OK | os.X_OK)
 base_dir = '/data' if data_permission else '/home'
 def init_save_folder(args, copysource=True):
-    ##########################################################################################################################################################
-    ## If the experiment folder cannot be deleted the problem is the parent folder (t2m,vq,eval) are created by root. Need to create manually by ourself.
-    ##############################################################################################################
     import glob
     global base_dir
     if args.exp_name != 'TEMP':
         date = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        args.out_dir = f"{base_dir}/epinyoan/git/MaskText2Motion/T2M-BD/{args.out_dir}/{date}_{args.exp_name}/"
+        args.out_dir = f"./{args.out_dir}/{date}_{args.exp_name}/"
         save_source = f'{args.out_dir}source/'
         os.makedirs(save_source, mode=os.umask(0), exist_ok=False)
-        os.chmod(save_source, 0o777)
-        if copysource:
-            _list = glob.glob('dataset/dataset*.py')+glob.glob('exit/*')+glob.glob('experiments/*')+glob.glob('models/*')+glob.glob('options/*')+glob.glob('utils/*')+\
-                ['GPT_eval_multi.py', 'train_t2m_trans.py', 'train_vq.py', 'VQ_eval.py', 'train_t2m_trans_uplow.py']
-            # It works with folder but had a problem with permission of files in folder for lambda2-3 (cannot read files) so just quick hack copy all files directly.
-            #_list = glob.glob('dataset/dataset*.py')+['exit', 'experiments', 'models', 'options', 'utils', 'GPT_eval_multi.py', 'train_t2m_trans.py', 'train_vq.py', 'VQ_eval.py', 'train_t2m_trans_uplow.py']
-            for f in  _list:
-                if f.split('/')[-1] == '__pycache__':
-                    continue
-                item = f'{save_source}{f}'
-                try:
-                    copyComplete(f, item)
-                except:
-                    os.makedirs(os.path.dirname(item), 0o777, exist_ok=True)
-                    copyComplete(f, item)
     else:
         args.out_dir = os.path.join(args.out_dir, f'{args.exp_name}')
 

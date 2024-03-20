@@ -2,3 +2,9 @@
 __pycache__/
 *.py[cod]
 ./output/*
+
+checkpoints
+glove
+dataset/HumanML3D
+dataset/KIT-ML
+output

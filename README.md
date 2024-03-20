@@ -12,7 +12,7 @@ Please visit our [**webpage**](https://exitudio.github.io/MMM-page/) for more de
 ### 1. Setup Env
 ```
 conda env create -f environment.yml
-
+conda activate MMM
 ```
 ### 2. Get Data
 ### 3. Download Pretrained Models
@@ -20,12 +20,19 @@ conda env create -f environment.yml
 https://drive.google.com/drive/u/1/folders/19qRMMk0mQyA7wyeWU4oZNSFkI6tLxGPN
 ```
 
+### 4. training
+#### vq
+```
+python train_vq.py --dataname t2m --exp-name vq_name
+```
+
 ## Motion Generation
 <details>
   <summary><b>Text to Motion</b></summary>
-  ```
+  
+  ```bash
   python generate.py --resume-pth '/path/to/vqvae.pth' --resume-trans 'path/to/trans.pth' --text 'the person crouches and walks forward.' --length 156
-  ```
+  ``````
 </details>
 
 <!-- <details>
