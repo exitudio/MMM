@@ -6,6 +6,8 @@ import models.t2m_trans as trans
 import models.t2m_trans_uplow as trans_uplow
 import numpy as np
 from exit.utils import visualize_2motions
+import options.option_transformer as option_trans
+
 
 
 ##### ---- CLIP ---- #####
@@ -114,7 +116,6 @@ class MMM(torch.nn.Module):
     
 
 if __name__ == '__main__':
-    import options.option_transformer as option_trans
     args = option_trans.get_args_parser()
 
 # python generate.py --resume-pth '/home/epinyoan/git/MaskText2Motion/T2M-BD/output/vq/2023-07-19-04-17-17_12_VQVAE_20batchResetNRandom_8192_32/net_last.pth' --resume-trans '/home/epinyoan/git/MaskText2Motion/T2M-BD/output/t2m/2023-10-12-10-11-15_HML3D_45_crsAtt1lyr_40breset_WRONG_THIS_20BRESET/net_last.pth' --text 'the person crouches and walks forward.' --length 156
@@ -124,6 +125,7 @@ if __name__ == '__main__':
 
     std = np.load('./exit/t2m-std.npy')
     mean = np.load('./exit/t2m-mean.npy')
-    visualize_2motions(pred_pose[0].detach().cpu().numpy(), std, mean, 't2m', args.length, save_path='./output/test.html')
+    file_name = '_'.join(args.text.split(' '))+'_'+str(args.length)
+    visualize_2motions(pred_pose[0].detach().cpu().numpy(), std, mean, 't2m', args.length, save_path='./output/'+file_name+'.html')
 
 

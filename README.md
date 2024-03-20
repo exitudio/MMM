@@ -10,15 +10,25 @@ Please visit our [**webpage**](https://exitudio.github.io/MMM-page/) for more de
 
 ## Getting Started
 ### 1. Setup Env
+```
+conda env create -f environment.yml
+
+```
 ### 2. Get Data
 ### 3. Download Pretrained Models
+```
+https://drive.google.com/drive/u/1/folders/19qRMMk0mQyA7wyeWU4oZNSFkI6tLxGPN
+```
 
 ## Motion Generation
 <details>
   <summary><b>Text to Motion</b></summary>
+  ```
+  python generate.py --resume-pth '/path/to/vqvae.pth' --resume-trans 'path/to/trans.pth' --text 'the person crouches and walks forward.' --length 156
+  ```
 </details>
 
-<details>
+<!-- <details>
   <summary><b>Motion Temporal Editing</b></summary>
 </details>
 
@@ -28,4 +38,4 @@ Please visit our [**webpage**](https://exitudio.github.io/MMM-page/) for more de
 
 <details>
   <summary><b>Long Range Motion Generation</b></summary>
-</details>
+</details> -->
