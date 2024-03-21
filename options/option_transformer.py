@@ -7,16 +7,16 @@ def get_args_parser():
     
     ## dataloader
     
-    parser.add_argument('--dataname', type=str, default='kit', help='dataset directory')
+    parser.add_argument('--dataname', type=str, default='t2m', help='dataset directory')
     parser.add_argument('--batch-size', default=128, type=int, help='batch size')
     parser.add_argument('--fps', default=[20], nargs="+", type=int, help='frames per second')
     parser.add_argument('--seq-len', type=int, default=64, help='training motion length')
     
     ## optimization
-    parser.add_argument('--total-iter', default=100000, type=int, help='number of total iterations to run')
+    parser.add_argument('--total-iter', default=300000, type=int, help='number of total iterations to run')
     parser.add_argument('--warm-up-iter', default=1000, type=int, help='number of total iterations for warmup')
     parser.add_argument('--lr', default=2e-4, type=float, help='max learning rate')
-    parser.add_argument('--lr-scheduler', default=[60000], nargs="+", type=int, help="learning rate schedule (iterations)")
+    parser.add_argument('--lr-scheduler', default=[150000], nargs="+", type=int, help="learning rate schedule (iterations)")
     parser.add_argument('--gamma', default=0.05, type=float, help="learning rate decay")
     
     parser.add_argument('--weight-decay', default=1e-6, type=float, help='weight decay') 
@@ -60,10 +60,10 @@ def get_args_parser():
     parser.add_argument('--vq-name', type=str, default='exp_debug', help='name of the generated dataset .npy, will create a file inside out-dir')
     ## other
     parser.add_argument('--print-iter', default=200, type=int, help='print frequency')
-    parser.add_argument('--eval-iter', default=5000, type=int, help='evaluation frequency')
+    parser.add_argument('--eval-iter', default=20000, type=int, help='evaluation frequency')
     parser.add_argument('--seed', default=123, type=int, help='seed for initializing training. ')
     parser.add_argument("--if-maxtest", action='store_true', help="test in max")
-    parser.add_argument('--pkeep', type=float, default=1.0, help='keep rate for gpt training')
+    parser.add_argument('--pkeep', type=float, default=.5, help='keep rate for gpt training')
     
     ## generator
     parser.add_argument('--text', type=str, help='text')

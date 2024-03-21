@@ -15,16 +15,34 @@ conda env create -f environment.yml
 conda activate MMM
 ```
 ### 2. Get Data
+Follow T2M-GPT setup
+
+[2.2. Dependencies](https://github.com/Mael-zys/T2M-GPT?tab=readme-ov-file#22-dependencies)
+
+[2.3. Datasets](https://github.com/Mael-zys/T2M-GPT?tab=readme-ov-file#23-datasets)
+
 ### 3. Download Pretrained Models
 ```
 https://drive.google.com/drive/u/1/folders/19qRMMk0mQyA7wyeWU4oZNSFkI6tLxGPN
 ```
 
-### 4. training
-#### vq
+## Training
+#### VQ-VAE
 ```
 python train_vq.py --dataname t2m --exp-name vq_name
 ```
+
+### Transformer
+
+```
+python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --num-local-layer 1
+```
+- Make sure the pretrain vqvae in ```output/vq/vq_name/net_last.pth``` <br>
+- ```--num-local-layer``` is number of cross attention layer <br>
+- support multple gpus ```export CUDA_VISIBLE_DEVICES=0,1,2,3``` <br>
+- we use 4 gpus, increasing batch size and iteration to ```--batch-size 512 --total-iter 75000```
+- The codebook will be pre-compute and export to ```output/vq/vq_name/codebook``` (It will take a couple minutes.)
+
 
 ## Motion Generation
 <details>
