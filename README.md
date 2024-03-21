@@ -35,14 +35,19 @@ python train_vq.py --dataname t2m --exp-name vq_name
 ### Transformer
 
 ```
-python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --num-local-layer 1
+python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --exp-name trans_name --num-local-layer 1
 ```
 - Make sure the pretrain vqvae in ```output/vq/vq_name/net_last.pth``` <br>
 - ```--num-local-layer``` is number of cross attention layer <br>
 - support multple gpus ```export CUDA_VISIBLE_DEVICES=0,1,2,3``` <br>
 - we use 4 gpus, increasing batch size and iteration to ```--batch-size 512 --total-iter 75000```
-- The codebook will be pre-compute and export to ```output/vq/vq_name/codebook``` (It will take a couple minutes.)
+- The codebook will be pre-computed and export to ```output/vq/vq_name/codebook``` (It will take a couple minutes.)
 
+
+### Eval
+```
+python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/vq_name/net_last.pth --resume-trans trans_name
+```
 
 ## Motion Generation
 <details>

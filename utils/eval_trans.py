@@ -173,26 +173,6 @@ def evaluation_transformer(out_dir, val_loader, net, trans, logger, writer, nb_i
     else:
         is_avg_all = False
 
-    is_pred_len = True
-    
-    if is_pred_len:
-        from models.len_predictor_modules import MotionLenEstimatorBiGRU
-        from utils.word_vectorizer import WordVectorizer, POS_enumerator
-        unit_length = 4
-        dim_word = 300
-        dim_pos_ohot = len(POS_enumerator)
-        num_classes = 200 // unit_length
-        estimator = MotionLenEstimatorBiGRU(dim_word, dim_pos_ohot, 512, num_classes)
-
-        if dataname == 't2m':
-            cp = '/home/epinyoan/git/text-to-motion/checkpoints/t2m/length_est_bigru/model/latest.tar'
-        elif dataname == 'kit':
-            cp = '/home/epinyoan/git/MaskText2Motion/T2M-BD/checkpoints/kit/length_est_bigru/model/latest.tar'
-        checkpoints = torch.load(cp, map_location='cpu')
-        estimator.load_state_dict(checkpoints['estimator'], strict=True)
-        estimator.cuda()
-        estimator.eval()
-        softmax = torch.nn.Softmax(-1)
 
     trans.eval()
     nb_sample = 0
@@ -226,16 +206,8 @@ def evaluation_transformer(out_dir, val_loader, net, trans, logger, writer, nb_i
         m_tokens_len = torch.ceil((m_length)/4)
 
          
-        if is_pred_len:
-            pred_probs = estimator(word_embeddings.cuda().float(), pos_one_hots.cuda().float(), sent_len).detach()
-            pred_probs = softmax(pred_probs)
-            # pred_tok_len = pred_probs.argsort(dim=-1, descending=True)[:, :5][..., 0]
-            pred_tok_len = torch.multinomial(pred_probs, 1, replacement=True).squeeze()
-            pred_tok_len = pred_tok_len.clamp(1,49)
-            pred_len = pred_tok_len*4
-        else:
-            pred_len = m_length.cuda()
-            pred_tok_len = m_tokens_len
+        pred_len = m_length.cuda()
+        pred_tok_len = m_tokens_len
 
 
         for i in range(num_repeat):
@@ -387,26 +359,6 @@ def evaluation_transformer(out_dir, val_loader, net, trans, logger, writer, nb_i
 
 def evaluation_transformer_uplow(out_dir, val_loader, net, trans, logger, writer, nb_iter, best_fid, best_iter, best_div, best_top1, best_top2, best_top3, best_matching, clip_model, eval_wrapper, dataname, draw = True, save = True, savegif=False, num_repeat=1, rand_pos=False, CFG=-1) : 
     from utils.humanml_utils import HML_UPPER_BODY_MASK, HML_LOWER_BODY_MASK
-    is_pred_len = False
-    
-    if is_pred_len:
-        from models.len_predictor_modules import MotionLenEstimatorBiGRU
-        from utils.word_vectorizer import WordVectorizer, POS_enumerator
-        unit_length = 4
-        dim_word = 300
-        dim_pos_ohot = len(POS_enumerator)
-        num_classes = 200 // unit_length
-        estimator = MotionLenEstimatorBiGRU(dim_word, dim_pos_ohot, 512, num_classes)
-
-        if dataname == 't2m':
-            cp = '/home/epinyoan/git/text-to-motion/checkpoints/t2m/length_est_bigru/model/latest.tar'
-        elif dataname == 'kit':
-            cp = '/home/epinyoan/git/MaskText2Motion/T2M-BD/checkpoints/kit/length_est_bigru/model/latest.tar'
-        checkpoints = torch.load(cp, map_location='cpu')
-        estimator.load_state_dict(checkpoints['estimator'], strict=True)
-        estimator.cuda()
-        estimator.eval()
-        softmax = torch.nn.Softmax(-1)
 
     trans.eval()
     nb_sample = 0
@@ -441,14 +393,8 @@ def evaluation_transformer_uplow(out_dir, val_loader, net, trans, logger, writer
         m_tokens_len = torch.ceil((m_length)/4)
 
          
-        if is_pred_len:
-            pred_probs = estimator(word_embeddings.cuda().float(), pos_one_hots.cuda().float(), sent_len).detach()
-            pred_probs = softmax(pred_probs)
-            pred_tok_len = pred_probs.argsort(dim=-1, descending=True)[:, :5][..., 0]
-            pred_len = pred_tok_len*4
-        else:
-            pred_len = m_length.cuda()
-            pred_tok_len = m_tokens_len
+        pred_len = m_length.cuda()
+        pred_tok_len = m_tokens_len
 
         max_motion_length = int(seq/4) + 1
         mot_end_idx = get_model(net).vqvae.num_code
