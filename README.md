@@ -1,4 +1,4 @@
-# [MMM: Generative Masked Motion Model](https://exitudio.github.io/MMM-page/)
+# [MMM: Generative Masked Motion Model](https://exitudio.github.io/MMM-page/) (CVPR 2024)
 [![arXiv](https://img.shields.io/badge/arXiv-<2312.03596>-<COLOR>.svg)](https://arxiv.org/abs/2312.03596)
 
 The official PyTorch implementation of the paper [**"MMM: Generative Masked Motion Model"**](https://arxiv.org/abs/2312.03596).
