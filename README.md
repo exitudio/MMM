@@ -69,3 +69,9 @@ python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/vq_name/net
 <details>
   <summary><b>Long Range Motion Generation</b></summary>
 </details> -->
+
+
+## License
+This code is distributed under an [LICENSE-CC-BY-NC-ND-4.0](LICENSE-CC-BY-NC-ND-4.0.md).
+
+Note that our code depends on other libraries, including CLIP, SMPL, SMPL-X, PyTorch3D, T2M-GPT, and uses datasets that each have their own respective licenses that must also be followed.
