@@ -7,6 +7,16 @@ Please visit our [**webpage**](https://exitudio.github.io/MMM-page/) for more de
 
 ![teaser_image](https://exitudio.github.io/MMM-page/assets/head.jpg)
 
+If our project is helpful for your research, please consider citing :
+``` 
+@inproceedings{pinyoanuntapong2024mmm,
+  title={MMM: Generative Masked Motion Model}, 
+  author={Ekkasit Pinyoanuntapong and Pu Wang and Minwoo Lee and Chen Chen},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2024},
+}
+```
+
 
 ## Getting Started
 ### 1. Setup Env
