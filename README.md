@@ -35,6 +35,10 @@ Follow T2M-GPT setup
 ```
 https://drive.google.com/drive/u/1/folders/19qRMMk0mQyA7wyeWU4oZNSFkI6tLxGPN
 ```
+##### text-to-motion
+for text-to-motion and all temporal editing tasks
+##### upper_body_editing
+for upper body edtiing task.
 
 ## Training
 #### VQ-VAE
@@ -60,25 +64,19 @@ python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/vq_name/net
 ```
 
 ## Motion Generation
-<details>
-  <summary><b>Text to Motion</b></summary>
-  
-  ```bash
-  python generate.py --resume-pth '/path/to/vqvae.pth' --resume-trans 'path/to/trans.pth' --text 'the person crouches and walks forward.' --length 156
-  ``````
-</details>
+<summary><b>Text to Motion</b></summary>
 
-<!-- <details>
-  <summary><b>Motion Temporal Editing</b></summary>
-</details>
+```bash
+python generate.py --resume-pth '/path/to/vqvae.pth' --resume-trans 'path/to/trans.pth' --text 'the person crouches and walks forward.' --length 156
+``````
 
-<details>
-  <summary><b>Upper Body Editing</b></summary>
-</details>
 
-<details>
-  <summary><b>Long Range Motion Generation</b></summary>
-</details> -->
+<summary><b>Editing</b></summary>
+
+Please see detail in
+```bash
+./edit.ipynb
+``````
 
 
 ## License
