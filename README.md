@@ -35,10 +35,9 @@ Follow T2M-GPT setup
 ```
 https://drive.google.com/drive/u/1/folders/19qRMMk0mQyA7wyeWU4oZNSFkI6tLxGPN
 ```
-##### text-to-motion
-for text-to-motion and all temporal editing tasks
-##### upper_body_editing
-for upper body edtiing task.
+There are 2 folders. Each of which consists of VQVAE and Text-to-Motion transformer models.
+1. **text-to-motion**: for text-to-motion and all temporal editing tasks
+2. **upper_body_editing**: for upper body editing task.
 
 ## Training
 #### VQ-VAE
