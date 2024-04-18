@@ -39,6 +39,9 @@ There are 2 folders. Each of which consists of VQVAE and Text-to-Motion transfor
 1. **text-to-motion**: for text-to-motion and all temporal editing tasks
 2. **upper_body_editing**: for upper body editing task.
 
+Download and put the pretrained models in `output` folder
+`./output/vq/vq_name/net_last.pth` and `./output/t2m/trans_name/net_last.pth`
+
 ## Training
 #### VQ-VAE
 ```
