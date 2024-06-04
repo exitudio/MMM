@@ -36,8 +36,6 @@ conda activate MMM
 ```
 
 ### 2. Get Data
-Follow T2M-GPT setup
-
 ### 2.1. Download Glove
 ```
 bash dataset/prepare/download_glove.sh
