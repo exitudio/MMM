@@ -129,7 +129,7 @@ python generate.py  --resume-pth output/vq/2023-07-19-04-17-17_12_VQVAE_20batchR
 The generated html is in ```output``` folder.
 
 <summary><b>Editing</b></summary>
-(Please load data as described in section 2.4) <br>
+(Please load pretrained model for upper body editing as described in section 2.4) <br>
 For better visualization of motion editing, we provide examples of all editing tasks in Jupyter Notebook. Please see the details in:
 
 ```bash
