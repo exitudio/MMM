@@ -40,7 +40,7 @@ def get_args_parser():
     parser.add_argument("--embed-dim-gpt", type=int, default=1024, help="embedding dimension")
     parser.add_argument("--clip-dim", type=int, default=512, help="latent dimension in the clip feature")
     parser.add_argument("--num-layers", type=int, default=9, help="nb of transformer layers")
-    parser.add_argument("--num-local-layer", type=int, default=1, help="nb of transformer local layers")
+    parser.add_argument("--num-local-layer", type=int, default=2, help="nb of transformer local layers")
     parser.add_argument("--n-head-gpt", type=int, default=16, help="nb of heads")
     parser.add_argument("--ff-rate", type=int, default=4, help="feedforward size")
     parser.add_argument("--drop-out-rate", type=float, default=0.1, help="dropout ratio in the pos encoding")
@@ -57,10 +57,10 @@ def get_args_parser():
     ## output directory 
     parser.add_argument('--out-dir', type=str, default='output', help='output directory')
     parser.add_argument('--exp-name', type=str, default='exp_debug', help='name of the experiment, will create a file inside out-dir')
-    parser.add_argument('--vq-name', type=str, default='exp_debug', help='name of the generated dataset .npy, will create a file inside out-dir')
+    parser.add_argument('--vq-name', type=str, default='VQVAE', help='name of the generated dataset .npy, will create a file inside out-dir')
     ## other
     parser.add_argument('--print-iter', default=200, type=int, help='print frequency')
-    parser.add_argument('--eval-iter', default=20000, type=int, help='evaluation frequency')
+    parser.add_argument('--eval-iter', default=10000, type=int, help='evaluation frequency')
     parser.add_argument('--seed', default=123, type=int, help='seed for initializing training. ')
     parser.add_argument("--if-maxtest", action='store_true', help="test in max")
     parser.add_argument('--pkeep', type=float, default=.5, help='keep rate for gpt training')

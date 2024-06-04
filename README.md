@@ -16,7 +16,8 @@ If our project is helpful for your research, please consider citing :
   year={2024},
 }
 ```
-
+## Update
+📢 June/3/24 - Fix generation bugs & add down load script & update to pretrain model with 2 local layers (better score than reported in the paper)
 
 ## Getting Started
 ### 1. Setup Env
@@ -24,14 +25,44 @@ If our project is helpful for your research, please consider citing :
 conda env create -f environment.yml
 conda activate MMM
 ```
+
+If you have a problem with the conflict, you can install them manually
+```
+conda create --name MMM
+conda install plotly tensorboard scipy matplotlib pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia
+pip install git+https://github.com/openai/CLIP.git einops gdown
+pip install --upgrade nbformat
+conda activate MMM
+```
+
 ### 2. Get Data
 Follow T2M-GPT setup
 
-[2.2. Dependencies](https://github.com/Mael-zys/T2M-GPT?tab=readme-ov-file#22-dependencies)
+### 2.1. Download Glove
+```
+bash dataset/prepare/download_glove.sh
+```
 
-[2.3. Datasets](https://github.com/Mael-zys/T2M-GPT?tab=readme-ov-file#23-datasets)
 
-### 3. Download Pretrained Models
+### 2.2. Motion & text feature extractors:
+
+We use the same extractors provided by [t2m](https://github.com/EricGuo5513/text-to-motion) to evaluate our generated motions. Please download the extractors.
+
+```bash
+bash dataset/prepare/download_extractor.sh
+```
+
+### 2.3. Pre-trained models 
+
+```bash
+bash dataset/prepare/download_model.sh
+```
+### 2.4. Pre-trained models only for upper body editing (optional) 
+
+```bash
+bash dataset/prepare/download_model_upperbody.sh
+```
+<!-- ### 3. Download Pretrained Models
 ```
 https://drive.google.com/drive/u/1/folders/19qRMMk0mQyA7wyeWU4oZNSFkI6tLxGPN
 ```
@@ -40,7 +71,31 @@ There are 2 folders. Each of which consists of VQVAE and Text-to-Motion transfor
 2. **upper_body_editing**: for upper body editing task.
 
 Download and put the pretrained models in `output` folder
-`./output/vq/vq_name/net_last.pth` and `./output/t2m/trans_name/net_last.pth`
+`./output/vq/vq_name/net_last.pth` and `./output/t2m/trans_name/net_last.pth` -->
+
+
+
+### 2.5. Datasets
+
+
+We are using two 3D human motion-language dataset: HumanML3D and KIT-ML. For both datasets, you could find the details as well as download link [[here]](https://github.com/EricGuo5513/HumanML3D).   
+
+Take HumanML3D for an example, the file directory should look like this:  
+```
+./dataset/HumanML3D/
+├── new_joint_vecs/
+├── texts/
+├── Mean.npy # same as in [HumanML3D](https://github.com/EricGuo5513/HumanML3D) 
+├── Std.npy # same as in [HumanML3D](https://github.com/EricGuo5513/HumanML3D) 
+├── train.txt
+├── val.txt
+├── test.txt
+├── train_val.txt
+└── all.txt
+```
+
+
+
 
 ## Training
 #### VQ-VAE
@@ -51,7 +106,7 @@ python train_vq.py --dataname t2m --exp-name vq_name
 ### Transformer
 
 ```
-python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --exp-name trans_name --num-local-layer 1
+python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --exp-name trans_name --num-local-layer 2
 ```
 - Make sure the pretrain vqvae in ```output/vq/vq_name/net_last.pth``` <br>
 - ```--num-local-layer``` is number of cross attention layer <br>
@@ -62,20 +117,23 @@ python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --exp-name tran
 
 ### Eval
 ```
-python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/vq_name/net_last.pth --resume-trans trans_name
+python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/2023-07-19-04-17-17_12_VQVAE_20batchResetNRandom_8192_32/net_last.pth --resume-trans output/t2m/2023-10-10-03-17-01_HML3D_44_crsAtt2lyr_mask0.5-1/net_last.pth --num-local-layer 2
 ```
-
+The log and tensorboard data will be in ```./output/eval/```
+- ```--resume-pth ``` path for vevae
+- ```--resume-trans``` path for transformer 
 ## Motion Generation
 <summary><b>Text to Motion</b></summary>
 
 ```bash
-python generate.py --resume-pth '/path/to/vqvae.pth' --resume-trans 'path/to/trans.pth' --text 'the person crouches and walks forward.' --length 156
+python generate.py  --resume-pth output/vq/2023-07-19-04-17-17_12_VQVAE_20batchResetNRandom_8192_32/net_last.pth --resume-trans output/t2m/2023-10-10-03-17-01_HML3D_44_crsAtt2lyr_mask0.5-1/net_last.pth --text 'the person crouches and walks forward.' --length 156
 ``````
-
+The generated html is in ```output``` folder.
 
 <summary><b>Editing</b></summary>
+(Please load data as described in section 2.4) <br>
+For better visualization of motion editing, we provide examples of all editing tasks in Jupyter Notebook. Please see the details in:
 
-Please see detail in
 ```bash
 ./edit.ipynb
 ``````

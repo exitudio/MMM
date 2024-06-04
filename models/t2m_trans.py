@@ -259,10 +259,10 @@ class Text2Motion_Transformer(nn.Module):
             scores[~src_token_mask_noend] = 0
             scores = scores/scores.sum(-1)[:, None] # normalize only unmasked token
             
-            if rand_pos:
-                sorted_score_indices = scores.multinomial(scores.shape[-1], replacement=False) # stocastic
-            else:
-                sorted, sorted_score_indices = scores.sort(descending=True) # deterministic
+            # if rand_pos:
+            #     sorted_score_indices = scores.multinomial(scores.shape[-1], replacement=False) # stocastic
+            # else:
+            sorted, sorted_score_indices = scores.sort(descending=True) # deterministic
             
             ids[~src_token_mask] = pad_id # [INFO] replace with pad id
             ids.scatter_(-1, m_tokens_len[..., None].long(), end_id) # [INFO] replace with end id
