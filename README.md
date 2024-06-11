@@ -17,7 +17,8 @@ If our project is helpful for your research, please consider citing :
 }
 ```
 ## Update
-📢 June/3/24 - Interactive demo is live at [huggingface](https://huggingface.co/spaces/samadi10/MMM-Demo) <br>
+📢 June/10/24 - Update pretrain model with FID. 0.070
+📢 June/8/24 - Interactive demo is live at [huggingface](https://huggingface.co/spaces/samadi10/MMM-Demo) <br>
 📢 June/3/24 - Fix generation bugs & add download script & update pretrain model with 2 local layers (better score than reported in the paper)
 
 ## Getting Started
@@ -116,7 +117,7 @@ python train_t2m_trans.py --vq-name vq_name --out-dir output/t2m --exp-name tran
 
 ### Eval
 ```
-python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/2023-07-19-04-17-17_12_VQVAE_20batchResetNRandom_8192_32/net_last.pth --resume-trans output/t2m/2023-10-10-03-17-01_HML3D_44_crsAtt2lyr_mask0.5-1/net_last.pth --num-local-layer 2
+python GPT_eval_multi.py --exp-name eval_name --resume-pth output/vq/2024-06-03-20-22-07_retrain/net_last.pth --resume-trans output/t2m/2024-06-04-09-29-20_trans_name_b128/net_last.pth --num-local-layer 2
 ```
 The log and tensorboard data will be in ```./output/eval/```
 - ```--resume-pth ``` path for vevae
@@ -125,7 +126,7 @@ The log and tensorboard data will be in ```./output/eval/```
 <summary><b>Text to Motion</b></summary>
 
 ```bash
-python generate.py  --resume-pth output/vq/2023-07-19-04-17-17_12_VQVAE_20batchResetNRandom_8192_32/net_last.pth --resume-trans output/t2m/2023-10-10-03-17-01_HML3D_44_crsAtt2lyr_mask0.5-1/net_last.pth --text 'the person crouches and walks forward.' --length 156
+python generate.py  --resume-pth output/vq/2024-06-03-20-22-07_retrain/net_last.pth --resume-trans output/t2m/2024-06-04-09-29-20_trans_name_b128/net_last.pth --text 'the person crouches and walks forward.' --length 156
 ``````
 The generated html is in ```output``` folder.
 
