@@ -17,7 +17,7 @@ If our project is helpful for your research, please consider citing :
 }
 ```
 ## Update
-📢 June/10/24 - Update pretrain model with FID. 0.070
+📢 June/10/24 - Update pretrain model with FID. 0.070 (using batchsize 128)<br>
 📢 June/8/24 - Interactive demo is live at [huggingface](https://huggingface.co/spaces/samadi10/MMM-Demo) <br>
 📢 June/3/24 - Fix generation bugs & add download script & update pretrain model with 2 local layers (better score than reported in the paper)
 
