@@ -98,7 +98,7 @@ class MMM(torch.nn.Module):
         self.maskdecoder = get_maskdecoder(args, self.vqvae, is_upper_edit)
         ckpt = torch.load(args.resume_trans, map_location='cpu')
         self.maskdecoder.load_state_dict(ckpt['trans'], strict=True)
-        self.maskdecoder.train()
+        self.maskdecoder.eval()
         self.maskdecoder.cuda()
 
     def forward(self, text, lengths=-1, rand_pos=True):
