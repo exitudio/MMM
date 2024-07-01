@@ -31,10 +31,10 @@ conda activate MMM
 If you have a problem with the conflict, you can install them manually
 ```
 conda create --name MMM
+conda activate MMM
 conda install plotly tensorboard scipy matplotlib pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia
 pip install git+https://github.com/openai/CLIP.git einops gdown
 pip install --upgrade nbformat
-conda activate MMM
 ```
 
 ### 2. Get Data
