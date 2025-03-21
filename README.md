@@ -29,14 +29,25 @@ conda env create -f environment.yml
 conda activate MMM
 ```
 
-If you have a problem with the conflict, you can install them manually
+If you encounter conflicts or prefer manual installation, use the following steps to ensure all dependencies, including CLIP, are installed correctly in the "MMM" environment:
 ```
-conda create --name MMM
+conda create --name MMM python=3.12
 conda activate MMM
 conda install plotly tensorboard scipy matplotlib pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia
-pip install git+https://github.com/openai/CLIP.git einops gdown
+python -m pip install git+https://github.com/openai/CLIP.git einops gdown tqdm ftfy regex
 pip install --upgrade nbformat
 ```
+- Use `python -m pip` to ensure packages are installed into the "MMM" environment’s site-packages.
+- This includes `clip` (OpenAI’s CLIP) and its dependencies (`tqdm`, `ftfy`, `regex`), avoiding installation into the user directory.
+
+If the `python -m pip` commands fail to install packages into the "MMM" environment (e.g., due to path or permission issues), use these fallback commands with the full path to the environment’s `pip`:
+```
+# Replace <CONDA_PREFIX> with your Conda installation path (e.g., ~/miniconda3 or ~/anaconda3)
+/<CONDA_PREFIX>/envs/MMM/bin/pip install git+https://github.com/openai/CLIP.git
+/<CONDA_PREFIX>/envs/MMM/bin/pip install einops gdown tqdm ftfy regex
+```
+- Find your `<CONDA_PREFIX>` by running `conda info | grep "base environment"` (e.g., `/home/username/miniconda3`).
+- Verify the installation with `pip show clip`—the `Location` should be within `/<CONDA_PREFIX>/envs/MMM/lib/python3.12/site-packages`.
 
 ### 2. Get Data
 ### 2.1. Download Glove
