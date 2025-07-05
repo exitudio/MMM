@@ -17,6 +17,9 @@ If our project is helpful for your research, please consider citing :
 }
 ```
 ## Update
+
+📢 June/25/25 - Our new paper ([MaskControl (ControlMM)](https://www.ekkasit.com/ControlMM-page/)) is accepted at ICCV 2025  <br>
+📢 June/22/25 - Released code for adding control to MMM ([MaskControl (ControlMM)](https://www.ekkasit.com/ControlMM-page/))<br>
 📢 July/2/24 - Our new paper ([BAMM](https://exitudio.github.io/BAMM-page/)) is accepted at ECCV 2024  <br>
 📢 June/10/24 - Update pretrain model with FID. 0.070 (using batchsize 128)<br>
 📢 June/8/24 - Interactive demo is live at [huggingface](https://huggingface.co/spaces/samadi10/MMM-Demo) <br>
